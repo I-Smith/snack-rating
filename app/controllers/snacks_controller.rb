@@ -3,7 +3,8 @@ class SnacksController < ApplicationController
 
   # GET /snacks or /snacks.json
   def index
-    @snacks = Snack.all
+    @snacks = params[:query].present? ? Snack.search(params[:query]) : Snack.all
+    @snacks = @snacks.order(tried_on: :desc)
   end
 
   # GET /snacks/1 or /snacks/1.json
@@ -12,7 +13,7 @@ class SnacksController < ApplicationController
 
   # GET /snacks/new
   def new
-    @snack = Snack.new
+    @snack = Snack.new(tried_on: Date.today)
   end
 
   # GET /snacks/1/edit

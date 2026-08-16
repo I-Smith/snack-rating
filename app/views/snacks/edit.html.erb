@@ -1,9 +1,9 @@
 <% content_for :title, "Edit Snack" %>
 
-<div class="w-full">
+<div class="bg-surface rounded-2xl shadow-sm border border-border p-6">
   <h1 class="font-bold text-2xl text-text-base mb-6">Edit Snack</h1>
 
   <%= render "form", snack: @snack %>
 
-  <%= link_to "Cancel", @snack, class: "block w-full text-center rounded-md px-4 py-3 mt-2 bg-surface border border-border text-text-base font-medium hover:opacity-90" %>
+  <%= link_to "Cancel", @snack, class: "block w-full text-center rounded-md px-4 py-3 mt-2 bg-background border border-border text-text-base font-medium hover:opacity-90" %>
 </div>

@@ -1,9 +1,9 @@
-<% content_for :title, "New snack" %>
+<% content_for :title, "New Snack" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New snack</h1>
+<div class="w-full">
+  <h1 class="font-bold text-2xl text-text-base mb-6">New Snack</h1>
 
   <%= render "form", snack: @snack %>
 
-  <%= link_to "Back to snacks", snacks_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Cancel", snacks_path, class: "block w-full text-center rounded-md px-4 py-3 mt-2 bg-surface border border-border text-text-base font-medium hover:opacity-90" %>
 </div>

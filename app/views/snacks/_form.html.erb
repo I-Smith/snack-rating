@@ -1,9 +1,8 @@
 <%= form_with(model: snack, class: "contents") do |form| %>
   <% if snack.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mb-4">
       <h2><%= pluralize(snack.errors.count, "error") %> prohibited this snack from being saved:</h2>
-
-      <ul class="list-disc ml-6">
+      <ul class="list-disc ml-6 mt-1">
         <% snack.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,42 +10,43 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :brand %>
-    <%= form.text_field :brand, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:brand].none?, "border-red-400 focus:outline-red-600": snack.errors[:brand].any?}] %>
-  </div>
+  <div class="space-y-4">
+    <div>
+      <%= form.label :brand, class: "block text-sm font-medium text-text-base mb-1" %>
+      <%= form.text_field :brand, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:name].none?, "border-red-400 focus:outline-red-600": snack.errors[:name].any?}] %>
-  </div>
+    <div>
+      <%= form.label :name, class: "block text-sm font-medium text-text-base mb-1" %>
+      <%= form.text_field :name, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :isaac_rating %>
-    <%= form.text_field :isaac_rating, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:isaac_rating].none?, "border-red-400 focus:outline-red-600": snack.errors[:isaac_rating].any?}] %>
-  </div>
+    <div>
+      <%= form.label :country_of_origin, class: "block text-sm font-medium text-text-base mb-1" %>
+      <%= form.text_field :country_of_origin, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :kristina_rating %>
-    <%= form.text_field :kristina_rating, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:kristina_rating].none?, "border-red-400 focus:outline-red-600": snack.errors[:kristina_rating].any?}] %>
-  </div>
+    <div>
+      <%= form.label :tried_on, class: "block text-sm font-medium text-text-base mb-1" %>
+      <%= form.date_field :tried_on, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :notes %>
-    <%= form.textarea :notes, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:notes].none?, "border-red-400 focus:outline-red-600": snack.errors[:notes].any?}] %>
-  </div>
+    <div class="flex gap-4">
+      <div class="flex-1">
+        <%= form.label :isaac_rating, "Isaac", class: "block text-sm font-medium text-text-base mb-1" %>
+        <%= form.number_field :isaac_rating, min: 0, max: 10, step: 0.1, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+      </div>
+      <div class="flex-1">
+        <%= form.label :kristina_rating, "Kristina", class: "block text-sm font-medium text-text-base mb-1" %>
+        <%= form.number_field :kristina_rating, min: 0, max: 10, step: 0.1, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+      </div>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :tried_on %>
-    <%= form.date_field :tried_on, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:tried_on].none?, "border-red-400 focus:outline-red-600": snack.errors[:tried_on].any?}] %>
-  </div>
+    <div>
+      <%= form.label :notes, class: "block text-sm font-medium text-text-base mb-1" %>
+      <%= form.text_area :notes, rows: 4, class: "block w-full rounded-md border border-border px-3 py-2 text-text-base focus:outline-none focus:ring-2 focus:ring-primary" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :country_of_origin %>
-    <%= form.text_field :country_of_origin, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": snack.errors[:country_of_origin].none?, "border-red-400 focus:outline-red-600": snack.errors[:country_of_origin].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "w-full rounded-md px-4 py-3 bg-primary text-white font-medium cursor-pointer hover:opacity-90" %>
   </div>
 <% end %>

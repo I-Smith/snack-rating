@@ -1,15 +1,35 @@
-<% content_for :title, "Showing snack" %>
+<% content_for :title, @snack.name %>
 
-<div class="md:w-2/3 w-full">
+<div class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Showing snack</h1>
+  <div class="bg-surface rounded-xl border border-border p-5">
+    <p class="text-text-muted text-sm mb-1"><%= @snack.brand %> · <%= @snack.country_of_origin %></p>
+    <h1 class="text-2xl font-bold text-text-base mb-4"><%= @snack.name %></h1>
 
-  <%= render @snack %>
+    <div class="flex gap-6 mb-4">
+      <div class="text-center">
+        <p class="text-3xl font-bold text-primary"><%= @snack.isaac_rating %></p>
+        <p class="text-xs text-text-muted mt-1">Isaac</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold text-primary"><%= @snack.kristina_rating %></p>
+        <p class="text-xs text-text-muted mt-1">Kristina</p>
+      </div>
+    </div>
 
-  <%= link_to "Edit this snack", edit_snack_path(@snack), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to snacks", snacks_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this snack", @snack, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+    <% if @snack.notes.present? %>
+      <p class="text-text-base text-sm leading-relaxed"><%= @snack.notes %></p>
+    <% end %>
+
+    <p class="text-text-muted text-xs mt-4">Tried on <%= @snack.tried_on.strftime("%B %d, %Y") %></p>
+  </div>
+
+  <div class="flex flex-col gap-2 mt-4">
+    <%= link_to "Edit", edit_snack_path(@snack), class: "text-center rounded-md px-4 py-2 bg-surface border border-border text-text-base font-medium hover:opacity-90" %>
+    <%= link_to "Back", snacks_path, class: "text-center rounded-md px-4 py-2 bg-surface border border-border text-text-base font-medium hover:opacity-90" %>
+    <%= button_to "Delete", @snack, method: :delete, class: "rounded-md px-4 py-2 bg-red-600 text-white font-medium cursor-pointer hover:opacity-90", data: { turbo_confirm: "Are you sure?" } %>
+  </div>
 </div>

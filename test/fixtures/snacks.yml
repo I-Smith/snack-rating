@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  brand: MyString
+  name: MyString
+  isaac_rating: 9.99
+  kristina_rating: 9.99
+  notes: MyText
+  tried_on: 2026-08-16
+  country_of_origin: MyString
+
+two:
+  brand: MyString
+  name: MyString
+  isaac_rating: 9.99
+  kristina_rating: 9.99
+  notes: MyText
+  tried_on: 2026-08-16
+  country_of_origin: MyString

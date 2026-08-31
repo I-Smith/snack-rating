@@ -24,7 +24,9 @@
       <p class="text-text-base text-sm leading-relaxed"><%= @snack.notes %></p>
     <% end %>
 
-    <p class="text-text-muted text-xs mt-4">Tried on <%= @snack.tried_on.strftime("%B %d, %Y") %></p>
+    <% if @snack.tried_on.present? %>
+      <p class="text-text-muted text-xs mt-4">Tried on <%= @snack.tried_on.strftime("%B %d, %Y") %></p>
+    <% end %>
   </div>
 
   <div class="flex flex-col gap-2 mt-4">

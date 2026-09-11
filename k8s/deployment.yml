@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snack-rating
+  labels:
+    app: snack-rating
+spec:
+  replicas: 1 # stays 1 — local-path PVC is pinned to one node
+  selector:
+    matchLabels:
+      app: snack-rating
+  template:
+    metadata:
+      labels:
+        app: snack-rating
+    spec:
+      containers:
+        - name: snack-rating
+          image: ghcr.io/i-smith/snack_rating:${IMAGE_TAG}
+          ports:
+            - containerPort: 80
+          env:
+            - name: RAILS_ENV
+              value: "production"
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: snack-rating-secrets
+                  key: RAILS_MASTER_KEY
+            - name: SNACK_APP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: snack-rating-secrets
+                  key: SNACK_APP_USER
+            - name: SNACK_APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: snack-rating-secrets
+                  key: SNACK_APP_PASSWORD
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /data
+          readinessProbe:
+            httpGet: { path: /up, port: 80 }
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet: { path: /up, port: 80 }
+            initialDelaySeconds: 15
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits: { memory: "512Mi" }
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: snack-rating-sqlite-pvc
+      imagePullSecrets:
+        - name: ghcr-pull-secret

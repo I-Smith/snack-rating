@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snack-rating-ingress
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: snacks.ismith.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: snack-rating
+                port:
+                  number: 80

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+TAG=$(git rev-parse --short HEAD)
+
+docker buildx build --platform linux/amd64 \
+  -t ghcr.io/i-smith/snack_rating:$TAG \
+  --push .
+
+echo "Image built with tag: $TAG"

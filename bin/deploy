@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMAGE_TAG=$1   # ./bin/deploy a1b2c3d
+export IMAGE_TAG
+
+kubectl apply -f k8s/pvc.yml
+
+kubectl delete job snack-rating-migrate --ignore-not-found=true
+envsubst '$IMAGE_TAG' < k8s/migration-job.yml | kubectl apply -f -
+kubectl wait --for=condition=complete job/snack-rating-migrate --timeout=120s
+
+envsubst '$IMAGE_TAG' < k8s/deployment.yml | kubectl apply -f -
+kubectl apply -f k8s/service.yml
+kubectl apply -f k8s/ingress.yml

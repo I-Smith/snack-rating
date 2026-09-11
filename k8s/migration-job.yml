@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: snack-rating-migrate
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-migrate
+          image: ghcr.io/i-smith/snack_rating:${IMAGE_TAG}
+          command: ["bin/rails", "db:prepare"]
+          env:
+            - name: RAILS_ENV
+              value: "production"
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  { name: snack-rating-secrets, key: RAILS_MASTER_KEY }
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /data
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim: { claimName: snack-rating-sqlite-pvc }
+      imagePullSecrets:
+        - name: ghcr-pull-secret

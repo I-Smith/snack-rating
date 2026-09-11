@@ -1,7 +1,7 @@
 class Snack < ApplicationRecord
   scope :search, ->(query) {
-    where("name LIKE ? OR brand LIKE ? OR country_of_origin LIKE ?",
-          "%#{query}%", "%#{query}%", "%#{query}%")
+    where("name LIKE ? OR brand LIKE ? OR country_of_origin LIKE ? OR notes LIKE ?",
+          "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
   }
 
   validates :name, presence: true
